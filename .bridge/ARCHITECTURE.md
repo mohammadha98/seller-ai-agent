@@ -30,7 +30,7 @@ The root workspace patterns are `apps/*` and `packages/*`. Each workspace has it
 
 ## Separation of concerns
 
-Follow [AGENT_BOUNDARIES.md](AGENT_BOUNDARIES.md) strictly. Shared design primitives and tokens belong to the Design System Agent, frontend service integrations and shared types to the Services Agent, frontend pages, features, and app shell to the UI Agent, and backend implementation to the Backend Agent. The Core Agent manages coordination documents, project documentation, and root settings without writing product code.
+Follow [AGENT_BOUNDARIES.md](AGENT_BOUNDARIES.md) strictly. Shared design primitives and tokens belong to the Design System Agent, frontend service integrations, shared types, and signal state to the Services Agent, frontend pages, features, and app shell to the UI Agent, and backend implementation to the Backend Agent. The Core Agent manages coordination documents, project documentation, and root settings without writing product code.
 
 All agents may read shared state. Only the owning agent writes product code in its paths. Coordination updates do not transfer ownership of another agent's product code.
 

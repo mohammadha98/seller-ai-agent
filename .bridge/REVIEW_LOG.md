@@ -6,6 +6,8 @@ Verdict values: `Pass`, `Conditional`, `Fail`.
 
 ## REVIEW-001 — Backend product catalog API (pre-review)
 
+> Superseded by REVIEW-002: the implementation is committed as `5aa40de`, `CONTRACT-001` is `Agreed`, and the boundary review passed.
+
 | Field | Value |
 | --- | --- |
 | Date | 2026-11-14 |
@@ -63,3 +65,57 @@ Non-blocking:
 - Services Agent: do not implement TASK-007 until `CONTRACT-001` is `Agreed`.
 - UI Agent: the Angular scaffold task (TASK-006) is independent and may proceed. Catalog pages must wait for TASK-005 and TASK-007.
 - Design System Agent: TASK-004 and TASK-005 are independent of the backend contract.
+
+---
+
+## REVIEW-002 — Baseline increment approval
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-14 |
+| Reviewer | Core Agent |
+| Scope | Backend API, Design System, UI app shell, Services client |
+| Contract | `CONTRACT-001` is `Agreed`; OQ-1 through OQ-4 are resolved |
+| Verdict | `Pass` — all four baselines approved for integration |
+
+### Approval matrix
+
+| Increment | Owner | Branch / head | Tasks | Boundary audit | Verdict |
+| --- | --- | --- | --- | --- | --- |
+| Backend product API | Backend Agent | `implement-nestjs-product-management` @ `5aa40de` | TASK-001, TASK-002 | Product changes are limited to `apps/api/**`. The same commit updates `.bridge/API_CONTRACTS.md` and its own task row, which are allowed. No `apps/web/**` or `packages/ui-kit/**` changes. | Pass |
+| Design system | Design System Agent | `design-system` @ `392a33e` | TASK-004, TASK-005 | Changes are limited to `packages/ui-kit/**`: tokens, themes, 18 stateless components, public API, and build/typecheck scripts. No `apps/**` writes or cross-boundary imports. | Pass |
+| UI app shell | UI Agent | `ui` @ `65ac287` (product head `8cf959a`) | TASK-006 | Authored product changes are limited to `apps/web/**`, plus its own task row. Pages were moved to `apps/web/src/pages`; no catalog routes, `HttpClient` calls, service imports, or `ui-kit` imports were added. The branch also carries the inherited Core docs from `4617277`, which are not UI-authored. | Pass |
+| Services client | Services Agent | `frontend-services` @ `29e1518` | TASK-007 | Changes are limited to `apps/web/src/services/**`, `apps/web/src/core/**`, and `.bridge/API_CONTRACTS.md`. The `core/**` path is ratified as Services-owned in `AGENT_BOUNDARIES.md`; it contains shared types and signal state only. No pages, app shell, or `ui-kit` changes. | Pass |
+
+### Verification evidence
+
+| Increment | Evidence |
+| --- | --- |
+| Backend | Commit `5aa40de`; service unit tests in `apps/api/src/products/products.service.spec.ts`. Controller/e2e coverage remains TASK-003. |
+| Design System | Commit `392a33e`; `packages/ui-kit` defines `build`, `smoke`, and `typecheck` verification scripts in its manifest. This review is structural and does not re-run domain verification. |
+| UI shell | TASK-006 row and commit `8cf959a`: build, lint, and tests passed (3 files, 4 tests). No catalog code was introduced. |
+| Services | Commit `29e1518`; typed `ProductService`, normalized `ApiError`, and `ProductStore` signals. Contract acknowledgment is recorded in `API_CONTRACTS.md`. |
+
+### Contract status
+
+`CONTRACT-001` is `Agreed` and consolidated on `devcore`. `GET /products` returns all products; the storefront filters `isActive` client-side through `ProductStore`. `description` is required, no `currency` field exists, and no pagination or search parameters are defined for Increment 1. Any later schema change requires a new dated revision.
+
+### Root lockfile tracking
+
+- The Backend worktree contains an untracked root `package-lock.json` with the NestJS dependency tree (291 KB). It was left out of commit `5aa40de`.
+- The UI branch committed a root `package-lock.json` with the Angular dependency tree (8,495 lines) in `b24edb7`.
+- Neither file is a valid canonical lockfile for the integrated workspace because each was generated from a different set of workspace manifests.
+- The Core Agent owns root configuration. During integration, Core will regenerate the lockfile from the integrated manifests, verify that both the NestJS and Angular dependency trees are present, and commit it under TASK-011 before any merge to `main`. No domain agent should commit another partial root lockfile.
+
+### Integration conditions
+
+1. Integrate in order: Backend, Design System, Services, then UI shell. Resolve `.bridge` conflicts in favor of this consolidated `devcore` state.
+2. Regenerate and commit the canonical root `package-lock.json` under TASK-011.
+3. Keep TASK-003 (controller/e2e coverage) as a follow-up before production hardening.
+4. TASK-008 and TASK-009 may start once the UI Agent is on the integrated baseline; both must consume `@ai-shop/ui-kit` and the Services layer.
+
+### Notes for dependent agents
+
+- UI Agent: TASK-008 and TASK-009 are `Ready for Dev`. Do not edit `packages/ui-kit/**`, `apps/web/src/services/**`, or `apps/web/src/core/**`; request changes through the task queue.
+- Services Agent: the contract is agreed; record a new revision if the UI work needs any schema change.
+- Backend Agent: TASK-003 remains open for controller/e2e coverage; do not reopen the agreed contract without a dated revision.

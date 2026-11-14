@@ -7,7 +7,7 @@ Each path has exactly one writing owner. Every agent may read the whole reposito
 | Agent | Owns (write) | Must not write |
 | --- | --- | --- |
 | Design System Agent | `packages/ui-kit/**` | `apps/**`, `.bridge/**`, `docs/**`, root files |
-| Services Agent | `apps/web/src/services/**`, `apps/web/src/types/**`, `apps/web/src/environments/**` | `packages/ui-kit/**`, `apps/api/**`, `apps/web/src/pages/**`, `apps/web/src/features/**`, `.bridge/**`, root files |
+| Services Agent | `apps/web/src/services/**`, `apps/web/src/core/**` (shared types and signal state) | `packages/ui-kit/**`, `apps/api/**`, `apps/web/src/pages/**`, `apps/web/src/features/**`, `apps/web/src/app/**`, `.bridge/**`, root files |
 | UI Agent | `apps/web/**` except the Services-owned paths above | `packages/ui-kit/**`, `apps/api/**`, `.bridge/**`, `docs/**`, root files |
 | Backend Agent | `apps/api/**` | `apps/web/**`, `packages/ui-kit/**`, `.bridge/**`, `docs/**`, root files |
 | Core Agent | `.bridge/**`, `docs/**`, root configuration (`package.json`, `package-lock.json`, `.gitignore`, `README.md`) | `apps/**`, `packages/**` |
@@ -15,7 +15,7 @@ Each path has exactly one writing owner. Every agent may read the whole reposito
 ## Shared and root files
 
 - Workspace manifests: an agent may edit only its own workspace `package.json` (`apps/api`, `apps/web`, or `packages/ui-kit`). The root `package.json` is Core-owned.
-- Root lockfile: running `npm install` from the root may update `package-lock.json`. This is allowed as a side effect of adding workspace dependencies, but the change must be included in the task commit and called out in the PR description. No agent may hand-edit the lockfile.
+- Root lockfile: running `npm install` from the root may update `package-lock.json`. This is allowed as a side effect of adding workspace dependencies, but the change must be included in the task commit and called out in the PR description. No agent may hand-edit the lockfile. The Core Agent owns the canonical integrated lockfile and regenerates it after baseline integration.
 - Root tooling and documentation: `README.md`, `.gitignore`, and root configuration belong to the Core Agent. Request changes through a task instead of editing them.
 - Generated artifacts: `node_modules/`, `dist/`, `coverage/`, and other ignored outputs are never committed. Deleting or regenerating them is not a product change.
 

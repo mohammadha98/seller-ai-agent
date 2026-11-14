@@ -88,20 +88,28 @@ Catalog pages meet WCAG 2.1 AA for the implemented flows: keyboard navigation, v
 
 ## 7. Assumptions
 
-- Single currency; currency display is a frontend concern until a backend field is agreed.
-- `description` is required for now because the current DTO requires it.
+- Single currency: `price` is a bare number and no `currency` field exists in Increment 1.
+- `GET /products` returns all products; the storefront filters `isActive` on the client.
+- `description` is required on create and update; an empty string is valid.
 - No authentication in Increment 1; admin-only operations are deferred.
-- No pagination, search, or sorting in Increment 1 unless the contract owners agree to add them.
+- No pagination, search, or sorting in Increment 1.
 - The AI sales assistant is out of scope for Increment 1.
 
-## 8. Open questions
+## 8. Resolved and open questions
+
+Resolved on 2026-11-14 in [.bridge/API_CONTRACTS.md](../.bridge/API_CONTRACTS.md):
+
+| ID | Resolution |
+| --- | --- |
+| OQ-1 | `GET /products` returns all products; the client filters active products through `ProductStore`. |
+| OQ-2 | `description` is required; an empty string is valid. |
+| OQ-3 | No `currency` field in Increment 1; currency display is a frontend concern. |
+| OQ-4 | No pagination, search, or sort parameters in Increment 1; clients consume the full list. |
+
+Still open:
 
 | ID | Question | Owner | Blocks |
 | --- | --- | --- | --- |
-| OQ-1 | Should shoppers receive only active products from the API, or should the frontend filter? | Backend + Services | TASK-002, TASK-005 |
-| OQ-2 | Is `description` optional? | Backend | TASK-002 |
-| OQ-3 | Is a `currency` field required, or is currency fixed for the MVP? | Backend + Services | TASK-002 |
-| OQ-4 | Should list responses support pagination or search in Increment 1? | Backend + Services | TASK-002 |
 | OQ-5 | What are the authoritative requirements for the conversational AI sales assistant? | Core + stakeholders | Future increment |
 
 ## 9. Traceability
