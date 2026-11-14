@@ -1,0 +1,57 @@
+@if (open) {
+  <div class="ui-modal__backdrop" (mousedown)="onBackdropClick($event)">
+    <div
+      #panel
+      class="ui-modal"
+      [class.ui-modal--sm]="size === 'sm'"
+      [class.ui-modal--md]="size === 'md'"
+      [class.ui-modal--lg]="size === 'lg'"
+      [class.ui-modal--xl]="size === 'xl'"
+      role="dialog"
+      aria-modal="true"
+      tabindex="-1"
+      [attr.aria-labelledby]="title ? titleId : null"
+      [attr.aria-label]="title ? null : ariaLabel"
+      (mousedown)="$event.stopPropagation()"
+    >
+      <header class="ui-modal__header">
+        <div class="ui-modal__heading">
+          @if (title) {
+            <h2 class="ui-modal__title" [id]="titleId">{{ title }}</h2>
+          }
+          @if (description) {
+            <p class="ui-modal__description">{{ description }}</p>
+          }
+        </div>
+
+        @if (showClose) {
+          <button
+            class="ui-modal__close"
+            type="button"
+            aria-label="Close dialog"
+            (click)="requestClose('close-button')"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 20 20"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            >
+              <path d="m5 5 10 10M15 5 5 15" />
+            </svg>
+          </button>
+        }
+      </header>
+
+      <div class="ui-modal__body">
+        <ng-content></ng-content>
+      </div>
+
+      <footer class="ui-modal__footer">
+        <ng-content select="[uiModalFooter]"></ng-content>
+      </footer>
+    </div>
+  </div>
+}

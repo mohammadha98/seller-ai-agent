@@ -1,0 +1,30 @@
+<label class="ui-toggle" [class.ui-toggle--disabled]="disabled" [attr.for]="resolvedId">
+  <span class="ui-toggle__control">
+    <input
+      class="ui-toggle__input"
+      type="checkbox"
+      role="switch"
+      [id]="resolvedId"
+      [checked]="checked"
+      [attr.name]="name || null"
+      [attr.aria-describedby]="hint ? hintId : null"
+      [disabled]="disabled"
+      (change)="onChange($event)"
+      (blur)="onBlur($event)"
+    />
+    <span class="ui-toggle__track" aria-hidden="true">
+      <span class="ui-toggle__thumb"></span>
+    </span>
+  </span>
+
+  @if (label || hint) {
+    <span class="ui-toggle__text">
+      @if (label) {
+        <span class="ui-toggle__label">{{ label }}</span>
+      }
+      @if (hint) {
+        <span class="ui-toggle__hint" [id]="hintId">{{ hint }}</span>
+      }
+    </span>
+  }
+</label>

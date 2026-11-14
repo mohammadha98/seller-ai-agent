@@ -1,0 +1,16 @@
+@use 'themes';
+
+:root,
+[data-ui-theme='light'] {
+  @include themes.light;
+}
+
+[data-ui-theme='dark'] {
+  @include themes.dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ui-theme-auto {
+    @include themes.dark;
+  }
+}

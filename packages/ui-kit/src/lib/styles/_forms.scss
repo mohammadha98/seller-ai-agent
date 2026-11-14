@@ -1,0 +1,105 @@
+@use 'tokens' as tokens;
+
+@mixin control-base($size: md) {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: tokens.ui-control-height($size);
+  padding: tokens.ui-space(2) tokens.ui-space(3);
+  font-family: inherit;
+  font-size: tokens.ui-font-size(sm);
+  line-height: tokens.ui-line-height(normal);
+  color: tokens.ui-color(text-primary);
+  background: tokens.ui-color(bg-surface);
+  border: 1px solid tokens.ui-color(border);
+  border-radius: tokens.ui-radius(md);
+  transition:
+    border-color tokens.ui-duration(fast) tokens.ui-easing(standard),
+    box-shadow tokens.ui-duration(fast) tokens.ui-easing(standard),
+    background-color tokens.ui-duration(fast) tokens.ui-easing(standard);
+
+  &::placeholder {
+    color: tokens.ui-color(text-tertiary);
+    opacity: 1;
+  }
+
+  &:hover:not(:disabled):not([readonly]) {
+    border-color: tokens.ui-color(border-strong);
+  }
+
+  &:focus-visible {
+    border-color: tokens.ui-color(primary);
+    outline: none;
+    box-shadow: 0 0 0 3px tokens.ui-color(focus-ring);
+  }
+
+  &[aria-invalid='true'] {
+    border-color: tokens.ui-color(danger);
+
+    &:focus-visible {
+      border-color: tokens.ui-color(danger);
+    }
+  }
+
+  &:disabled {
+    color: tokens.ui-color(disabled-text);
+    background: tokens.ui-color(disabled-bg);
+    border-color: tokens.ui-color(disabled-border);
+    cursor: not-allowed;
+
+    &::placeholder {
+      color: tokens.ui-color(disabled-text);
+    }
+  }
+
+  &[readonly] {
+    background: tokens.ui-color(bg-subtle);
+  }
+
+  @media (forced-colors: active) {
+    &:focus-visible {
+      outline: 2px solid CanvasText;
+    }
+  }
+}
+
+@mixin field-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: tokens.ui-space(1);
+  margin-bottom: tokens.ui-space(2);
+  font-size: tokens.ui-font-size(sm);
+  font-weight: tokens.ui-weight(semibold);
+  line-height: tokens.ui-line-height(snug);
+  color: tokens.ui-color(text-primary);
+}
+
+@mixin field-required {
+  color: tokens.ui-color(danger);
+  font-weight: tokens.ui-weight(medium);
+}
+
+@mixin field-message {
+  display: block;
+  margin-top: tokens.ui-space(1);
+  font-size: tokens.ui-font-size(xs);
+  line-height: tokens.ui-line-height(snug);
+  color: tokens.ui-color(text-tertiary);
+}
+
+@mixin field-error {
+  display: flex;
+  align-items: flex-start;
+  gap: tokens.ui-space(1);
+  margin-top: tokens.ui-space(1);
+  font-size: tokens.ui-font-size(xs);
+  line-height: tokens.ui-line-height(snug);
+  color: tokens.ui-color(danger);
+}
+
+@mixin field-shell {
+  display: flex;
+  align-items: center;
+  gap: tokens.ui-space(2);
+  width: 100%;
+}

@@ -1,0 +1,55 @@
+<div class="ui-field">
+  @if (label) {
+    <label class="ui-field__label" [attr.for]="resolvedId">
+      {{ label }}
+      @if (required) {
+        <span class="ui-field__required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <div
+    class="ui-input"
+    [class.ui-input--sm]="size === 'sm'"
+    [class.ui-input--md]="size === 'md'"
+    [class.ui-input--lg]="size === 'lg'"
+    [class.ui-input--invalid]="isInvalid"
+    [class.ui-input--disabled]="disabled"
+    [class.ui-input--readonly]="readonly"
+  >
+    <span class="ui-input__affix">
+      <ng-content select="[uiInputPrefix]"></ng-content>
+    </span>
+
+    <input
+      class="ui-input__control"
+      [id]="resolvedId"
+      [type]="type"
+      [value]="value"
+      [attr.name]="name || null"
+      [attr.placeholder]="placeholder || null"
+      [attr.inputmode]="inputMode || null"
+      [attr.autocomplete]="autocomplete || null"
+      [attr.maxlength]="maxLength"
+      [attr.aria-invalid]="isInvalid ? 'true' : null"
+      [attr.aria-describedby]="describedBy"
+      [attr.aria-required]="required ? 'true' : null"
+      [disabled]="disabled"
+      [readOnly]="readonly"
+      [required]="required"
+      (input)="onInput($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+    />
+
+    <span class="ui-input__affix">
+      <ng-content select="[uiInputSuffix]"></ng-content>
+    </span>
+  </div>
+
+  @if (error) {
+    <span class="ui-field__error" [id]="errorId">{{ error }}</span>
+  } @else if (hint) {
+    <span class="ui-field__hint" [id]="hintId">{{ hint }}</span>
+  }
+</div>

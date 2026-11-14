@@ -1,0 +1,95 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  display: block;
+}
+
+.ui-pagination {
+  --ui-pagination-item-size: #{t.ui-control-height(md)};
+  --ui-pagination-font-size: #{t.ui-font-size(sm)};
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: t.ui-space(1);
+
+  &--sm {
+    --ui-pagination-item-size: #{t.ui-control-height(sm)};
+    --ui-pagination-font-size: #{t.ui-font-size(xs)};
+  }
+}
+
+.ui-pagination__page,
+.ui-pagination__nav {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ui-pagination-item-size);
+  height: var(--ui-pagination-item-size);
+  padding: 0 t.ui-space(2);
+  font-family: inherit;
+  font-size: var(--ui-pagination-font-size);
+  font-weight: t.ui-weight(medium);
+  line-height: 1;
+  color: t.ui-color(text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: t.ui-radius(md);
+  cursor: pointer;
+  transition:
+    background-color t.ui-duration(fast) t.ui-easing(standard),
+    color t.ui-duration(fast) t.ui-easing(standard),
+    border-color t.ui-duration(fast) t.ui-easing(standard);
+
+  &:hover:not(:disabled) {
+    color: t.ui-color(text-primary);
+    background: t.ui-color(bg-muted);
+  }
+
+  &:focus-visible {
+    @include t.focus-ring(2px);
+  }
+
+  &:disabled {
+    color: t.ui-color(disabled-text);
+    cursor: not-allowed;
+  }
+}
+
+.ui-pagination__nav {
+  padding: 0;
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
+.ui-pagination__page--active {
+  color: t.ui-color(primary-contrast);
+  background: t.ui-color(primary);
+  border-color: t.ui-color(primary);
+
+  &:hover:not(:disabled) {
+    color: t.ui-color(primary-contrast);
+    background: t.ui-color(primary-hover);
+  }
+}
+
+.ui-pagination__ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--ui-pagination-item-size);
+  height: var(--ui-pagination-item-size);
+  color: t.ui-color(text-tertiary);
+  font-size: var(--ui-pagination-font-size);
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-pagination__page,
+  .ui-pagination__nav {
+    transition: none;
+  }
+}

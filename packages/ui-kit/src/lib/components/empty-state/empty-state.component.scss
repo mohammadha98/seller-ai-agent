@@ -1,0 +1,68 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  display: block;
+}
+
+.ui-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: t.ui-space(12) t.ui-space(6);
+  text-align: center;
+}
+
+.ui-empty-state__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: t.ui-space(4);
+  color: t.ui-color(text-tertiary);
+  background: t.ui-color(bg-muted);
+  border-radius: t.ui-radius(full);
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &:empty {
+    display: none;
+  }
+}
+
+.ui-empty-state__title {
+  margin: 0 0 t.ui-space(1);
+  font-size: t.ui-font-size(lg);
+  font-weight: t.ui-weight(semibold);
+  line-height: t.ui-line-height(snug);
+  color: t.ui-color(text-primary);
+}
+
+.ui-empty-state__description {
+  max-width: 28rem;
+  margin: 0;
+  font-size: t.ui-font-size(sm);
+  line-height: t.ui-line-height(normal);
+  color: t.ui-color(text-secondary);
+}
+
+.ui-empty-state__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: t.ui-space(2);
+  margin-top: t.ui-space(5);
+
+  &:empty {
+    display: none;
+  }
+}
+
+:host(.ui-empty-state-host--compact) .ui-empty-state {
+  padding: t.ui-space(6) t.ui-space(4);
+}

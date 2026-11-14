@@ -1,0 +1,47 @@
+<div class="ui-field">
+  @if (label) {
+    <label class="ui-field__label" [attr.for]="resolvedId">
+      {{ label }}
+      @if (required) {
+        <span class="ui-field__required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+
+  <textarea
+    class="ui-textarea"
+    [class.ui-textarea--invalid]="!!error"
+    [id]="resolvedId"
+    [rows]="rows"
+    [value]="value"
+    [style.resize]="resize"
+    [attr.name]="name || null"
+    [attr.placeholder]="placeholder || null"
+    [attr.maxlength]="maxLength"
+    [attr.aria-invalid]="error ? 'true' : null"
+    [attr.aria-describedby]="describedBy"
+    [attr.aria-required]="required ? 'true' : null"
+    [disabled]="disabled"
+    [readOnly]="readonly"
+    [required]="required"
+    (input)="onInput($event)"
+    (focus)="onFocus($event)"
+    (blur)="onBlur($event)"
+  ></textarea>
+
+  @if (showMeta) {
+    <div class="ui-field__meta">
+      @if (error) {
+        <span class="ui-field__error" [id]="errorId">{{ error }}</span>
+      } @else if (hint) {
+        <span class="ui-field__hint" [id]="hintId">{{ hint }}</span>
+      } @else {
+        <span></span>
+      }
+
+      @if (showCounter && maxLength !== null) {
+        <span class="ui-field__counter">{{ value.length }} / {{ maxLength }}</span>
+      }
+    </div>
+  }
+</div>
