@@ -1,0 +1,127 @@
+@use '../../styles/tokens' as t;
+@use '../../styles/forms' as forms;
+
+:host {
+  display: block;
+}
+
+.ui-field {
+  display: block;
+}
+
+.ui-field__label {
+  @include forms.field-label;
+}
+
+.ui-field__required {
+  @include forms.field-required;
+}
+
+.ui-field__hint {
+  @include forms.field-message;
+}
+
+.ui-field__error {
+  @include forms.field-error;
+
+  &::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-top: 0.0625rem;
+    color: t.ui-color(danger-contrast);
+    background: t.ui-color(danger);
+    border-radius: 50%;
+    font-size: 0.5625rem;
+    font-weight: t.ui-weight(bold);
+    line-height: 1;
+  }
+}
+
+.ui-select {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: t.ui-color(text-primary);
+  background: t.ui-color(bg-surface);
+  border: 1px solid t.ui-color(border);
+  border-radius: t.ui-radius(md);
+  transition:
+    border-color t.ui-duration(fast) t.ui-easing(standard),
+    box-shadow t.ui-duration(fast) t.ui-easing(standard),
+    background-color t.ui-duration(fast) t.ui-easing(standard);
+
+  &:hover {
+    border-color: t.ui-color(border-strong);
+  }
+
+  &:focus-within {
+    border-color: t.ui-color(primary);
+    box-shadow: 0 0 0 3px t.ui-color(focus-ring);
+  }
+
+  &--sm {
+    min-height: t.ui-control-height(sm);
+    font-size: t.ui-font-size(sm);
+  }
+
+  &--md {
+    min-height: t.ui-control-height(md);
+    font-size: t.ui-font-size(sm);
+  }
+
+  &--lg {
+    min-height: t.ui-control-height(lg);
+    font-size: t.ui-font-size(md);
+  }
+
+  &--invalid {
+    border-color: t.ui-color(danger);
+
+    &:focus-within {
+      box-shadow: 0 0 0 3px color-mix(in srgb, t.ui-color(danger) 24%, transparent);
+    }
+  }
+
+  &--disabled {
+    background: t.ui-color(disabled-bg);
+    border-color: t.ui-color(disabled-border);
+
+    &:hover {
+      border-color: t.ui-color(disabled-border);
+    }
+  }
+}
+
+.ui-select__control {
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  padding: t.ui-space(2) t.ui-space(10) t.ui-space(2) t.ui-space(3);
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+
+  &:disabled {
+    color: t.ui-color(disabled-text);
+    cursor: not-allowed;
+  }
+}
+
+.ui-select__chevron {
+  position: absolute;
+  right: t.ui-space(3);
+  width: 1rem;
+  height: 1rem;
+  color: t.ui-color(text-tertiary);
+  pointer-events: none;
+}

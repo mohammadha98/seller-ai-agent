@@ -1,0 +1,36 @@
+@if (src && !imageFailed) {
+  <img class="ui-avatar__image" [src]="src" [alt]="alt || name || ''" (error)="onImageError()" />
+} @else {
+  <span class="ui-avatar__fallback" role="img" [attr.aria-label]="alt || name || 'Avatar'">
+    @if (initials) {
+      <span aria-hidden="true">{{ initials }}</span>
+    } @else {
+      <svg
+        class="ui-avatar__placeholder"
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21a8 8 0 0 1 16 0" />
+      </svg>
+    }
+  </span>
+}
+
+@if (status) {
+  <span
+    class="ui-avatar__status"
+    role="img"
+    [class.ui-avatar__status--online]="status === 'online'"
+    [class.ui-avatar__status--away]="status === 'away'"
+    [class.ui-avatar__status--busy]="status === 'busy'"
+    [class.ui-avatar__status--offline]="status === 'offline'"
+    [attr.aria-label]="statusLabel()"
+    [attr.title]="statusLabel()"
+  ></span>
+}

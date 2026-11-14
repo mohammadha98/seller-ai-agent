@@ -1,0 +1,121 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  --ui-card-pad: #{t.ui-space(4)};
+  position: relative;
+  display: block;
+  overflow: hidden;
+  color: t.ui-color(text-primary);
+  background: t.ui-color(bg-surface);
+  border-radius: t.ui-radius(lg);
+  transition:
+    border-color t.ui-duration(fast) t.ui-easing(standard),
+    box-shadow t.ui-duration(base) t.ui-easing(standard),
+    transform t.ui-duration(base) t.ui-easing(standard);
+}
+
+:host(.ui-card--elevated) {
+  border: 1px solid t.ui-color(border-subtle);
+  box-shadow: t.ui-shadow(md);
+}
+
+:host(.ui-card--outlined) {
+  border: 1px solid t.ui-color(border);
+}
+
+:host(.ui-card--filled) {
+  background: t.ui-color(bg-subtle);
+  border: 1px solid t.ui-color(border-subtle);
+}
+
+:host(.ui-card--plain) {
+  background: transparent;
+}
+
+:host(.ui-card--pad-none) {
+  --ui-card-pad: 0;
+}
+
+:host(.ui-card--pad-sm) {
+  --ui-card-pad: #{t.ui-space(3)};
+}
+
+:host(.ui-card--pad-lg) {
+  --ui-card-pad: #{t.ui-space(6)};
+}
+
+:host(.ui-card--interactive) {
+  cursor: pointer;
+
+  &:hover {
+    border-color: t.ui-color(border-strong);
+    box-shadow: t.ui-shadow(lg);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    @include t.focus-ring(2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+:host(.ui-card--selected) {
+  border-color: t.ui-color(primary);
+  box-shadow: 0 0 0 1px t.ui-color(primary);
+}
+
+.ui-card__media,
+.ui-card__header,
+.ui-card__body,
+.ui-card__footer {
+  box-sizing: border-box;
+}
+
+.ui-card__media {
+  display: block;
+  overflow: hidden;
+}
+
+.ui-card__header {
+  padding: var(--ui-card-pad) var(--ui-card-pad) 0;
+}
+
+.ui-card__body {
+  padding: var(--ui-card-pad);
+}
+
+.ui-card__footer {
+  padding: 0 var(--ui-card-pad) var(--ui-card-pad);
+}
+
+.ui-card__media:empty,
+.ui-card__header:empty,
+.ui-card__body:empty,
+.ui-card__footer:empty {
+  display: none;
+}
+
+:host ::ng-deep .ui-card__media > * {
+  display: block;
+  width: 100%;
+}
+
+:host ::ng-deep .ui-card__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    transition: none;
+  }
+
+  :host(.ui-card--interactive):hover {
+    transform: none;
+  }
+}

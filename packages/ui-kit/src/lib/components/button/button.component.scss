@@ -1,0 +1,196 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  display: inline-flex;
+  max-width: 100%;
+}
+
+:host(.ui-button-host--full) {
+  display: flex;
+  width: 100%;
+}
+
+.ui-visually-hidden {
+  @include t.visually-hidden;
+}
+
+.ui-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: t.ui-space(2);
+  max-width: 100%;
+  border: 1px solid transparent;
+  border-radius: t.ui-radius(md);
+  font-family: inherit;
+  font-weight: t.ui-weight(semibold);
+  line-height: t.ui-line-height(none);
+  letter-spacing: t.ui-tracking(normal);
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color t.ui-duration(fast) t.ui-easing(standard),
+    border-color t.ui-duration(fast) t.ui-easing(standard),
+    color t.ui-duration(fast) t.ui-easing(standard),
+    box-shadow t.ui-duration(fast) t.ui-easing(standard),
+    transform t.ui-duration(instant) t.ui-easing(standard);
+
+  &:focus-visible {
+    @include t.focus-ring(2px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  &--sm {
+    height: t.ui-control-height(sm);
+    padding: 0 t.ui-space(3);
+    font-size: t.ui-font-size(sm);
+  }
+
+  &--md {
+    height: t.ui-control-height(md);
+    padding: 0 t.ui-space(4);
+    font-size: t.ui-font-size(sm);
+  }
+
+  &--lg {
+    height: t.ui-control-height(lg);
+    padding: 0 t.ui-space(5);
+    font-size: t.ui-font-size(md);
+  }
+
+  &--primary {
+    color: t.ui-color(primary-contrast);
+    background: t.ui-color(primary);
+    box-shadow: t.ui-shadow(sm);
+
+    &:hover:not(:disabled) {
+      background: t.ui-color(primary-hover);
+    }
+
+    &:active:not(:disabled) {
+      background: t.ui-color(primary-active);
+    }
+  }
+
+  &--secondary {
+    color: t.ui-color(text-primary);
+    background: t.ui-color(bg-muted);
+
+    &:hover:not(:disabled) {
+      background: t.ui-color(bg-subtle);
+      border-color: t.ui-color(border-strong);
+    }
+  }
+
+  &--outline {
+    color: t.ui-color(text-primary);
+    background: transparent;
+    border-color: t.ui-color(border-strong);
+
+    &:hover:not(:disabled) {
+      background: t.ui-color(bg-muted);
+    }
+  }
+
+  &--ghost {
+    color: t.ui-color(text-secondary);
+    background: transparent;
+
+    &:hover:not(:disabled) {
+      color: t.ui-color(text-primary);
+      background: t.ui-color(bg-muted);
+    }
+  }
+
+  &--danger {
+    color: t.ui-color(danger-contrast);
+    background: t.ui-color(danger);
+    box-shadow: t.ui-shadow(sm);
+
+    &:hover:not(:disabled) {
+      background: t.ui-color(danger-hover);
+    }
+  }
+
+  &--link {
+    height: auto;
+    padding: 0;
+    color: t.ui-color(text-link);
+    background: transparent;
+    border-radius: t.ui-radius(xs);
+    text-decoration: none;
+
+    &:hover:not(:disabled) {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+
+  &--icon-only {
+    gap: 0;
+    padding: 0;
+    aspect-ratio: 1 / 1;
+
+    &.ui-button--sm {
+      width: t.ui-control-height(sm);
+    }
+
+    &.ui-button--md {
+      width: t.ui-control-height(md);
+    }
+
+    &.ui-button--lg {
+      width: t.ui-control-height(lg);
+    }
+  }
+
+  &:disabled {
+    color: t.ui-color(disabled-text);
+    background: t.ui-color(disabled-bg);
+    border-color: t.ui-color(disabled-border);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &--link:disabled {
+    background: transparent;
+    border-color: transparent;
+  }
+}
+
+.ui-button__spinner {
+  flex: 0 0 auto;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: ui-button-spin 700ms linear infinite;
+}
+
+@keyframes ui-button-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-button {
+    transition: none;
+
+    &:active:not(:disabled) {
+      transform: none;
+    }
+  }
+
+  .ui-button__spinner {
+    animation-duration: 1600ms;
+  }
+}

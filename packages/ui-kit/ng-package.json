@@ -1,0 +1,18 @@
+{
+  "dest": "dist",
+  "assets": [
+    {
+      "input": "src/lib/styles",
+      "glob": "**/*.scss",
+      "output": "styles"
+    },
+    {
+      "input": ".",
+      "glob": "README.md",
+      "output": "."
+    }
+  ],
+  "lib": {
+    "entryFile": "src/public-api.ts"
+  }
+}

@@ -1,0 +1,26 @@
+<button
+  class="ui-button"
+  [class.ui-button--sm]="size === 'sm'"
+  [class.ui-button--md]="size === 'md'"
+  [class.ui-button--lg]="size === 'lg'"
+  [class.ui-button--primary]="variant === 'primary'"
+  [class.ui-button--secondary]="variant === 'secondary'"
+  [class.ui-button--outline]="variant === 'outline'"
+  [class.ui-button--ghost]="variant === 'ghost'"
+  [class.ui-button--danger]="variant === 'danger'"
+  [class.ui-button--link]="variant === 'link'"
+  [class.ui-button--icon-only]="iconOnly"
+  [class.ui-button--loading]="loading"
+  [attr.type]="type"
+  [disabled]="disabled || loading"
+  [attr.title]="title || null"
+  [attr.aria-label]="ariaLabel || null"
+  [attr.aria-busy]="loading ? 'true' : null"
+  (click)="onClick($event)"
+>
+  @if (loading) {
+    <span class="ui-button__spinner" aria-hidden="true"></span>
+    <span class="ui-visually-hidden">Loading</span>
+  }
+  <ng-content></ng-content>
+</button>

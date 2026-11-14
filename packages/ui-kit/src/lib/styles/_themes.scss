@@ -1,0 +1,75 @@
+@use 'sass:map';
+@use 'sass:string';
+@use 'semantic' as semantic;
+@use 'tokens' as tokens;
+
+@mixin foundation {
+  color-scheme: light;
+
+  --ui-font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --ui-font-display: var(--ui-font-sans);
+  --ui-font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+
+  @each $step, $value in tokens.$spacing {
+    --ui-space-#{$step}: #{$value};
+  }
+
+  @each $name, $value in tokens.$radii {
+    --ui-radius-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$font-sizes {
+    --ui-font-size-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$line-heights {
+    --ui-line-height-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$font-weights {
+    --ui-font-weight-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$letter-spacings {
+    --ui-letter-spacing-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$durations {
+    --ui-duration-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$easings {
+    --ui-easing-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$z-layers {
+    --ui-z-#{$name}: #{$value};
+  }
+
+  @each $name, $value in tokens.$control-heights {
+    --ui-control-height-#{$name}: #{$value};
+  }
+
+  --ui-container-max: #{tokens.$container-max};
+}
+
+@mixin color-tokens($theme) {
+  @each $name, $value in $theme {
+    @if string.index($name, 'shadow-') == 1 {
+      --ui-shadow-#{string.slice($name, 8)}: #{$value};
+    } @else {
+      --ui-color-#{$name}: #{$value};
+    }
+  }
+}
+
+@mixin light {
+  @include foundation;
+  @include color-tokens(semantic.$light);
+}
+
+@mixin dark {
+  @include foundation;
+  color-scheme: dark;
+  @include color-tokens(semantic.$dark);
+}

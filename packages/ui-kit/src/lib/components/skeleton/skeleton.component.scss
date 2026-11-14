@@ -1,0 +1,50 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  display: block;
+  background: t.ui-color(bg-muted);
+  background-image: linear-gradient(
+    90deg,
+    t.ui-color(bg-muted) 0%,
+    t.ui-color(bg-subtle) 40%,
+    t.ui-color(bg-muted) 80%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  border-radius: t.ui-radius(sm);
+  overflow: hidden;
+}
+
+:host(.ui-skeleton--line) {
+  border-radius: t.ui-radius(full);
+}
+
+:host(.ui-skeleton--rect) {
+  border-radius: t.ui-radius(md);
+}
+
+:host(.ui-skeleton--circle) {
+  flex: 0 0 auto;
+  border-radius: t.ui-radius(full);
+}
+
+:host(.ui-skeleton--animated) {
+  animation: ui-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes ui-skeleton-shimmer {
+  from {
+    background-position: 150% 0;
+  }
+
+  to {
+    background-position: -50% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host(.ui-skeleton--animated) {
+    animation: none;
+    background-image: none;
+  }
+}

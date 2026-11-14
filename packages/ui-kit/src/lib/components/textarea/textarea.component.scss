@@ -1,0 +1,67 @@
+@use '../../styles/tokens' as t;
+@use '../../styles/forms' as forms;
+
+:host {
+  display: block;
+}
+
+.ui-field {
+  display: block;
+}
+
+.ui-field__label {
+  @include forms.field-label;
+}
+
+.ui-field__required {
+  @include forms.field-required;
+}
+
+.ui-field__hint {
+  @include forms.field-message;
+}
+
+.ui-field__error {
+  @include forms.field-error;
+
+  &::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 0.875rem;
+    height: 0.875rem;
+    margin-top: 0.0625rem;
+    color: t.ui-color(danger-contrast);
+    background: t.ui-color(danger);
+    border-radius: 50%;
+    font-size: 0.5625rem;
+    font-weight: t.ui-weight(bold);
+    line-height: 1;
+  }
+}
+
+.ui-field__meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: t.ui-space(2);
+}
+
+.ui-field__counter {
+  margin-top: t.ui-space(1);
+  margin-left: auto;
+  font-size: t.ui-font-size(xs);
+  line-height: t.ui-line-height(snug);
+  color: t.ui-color(text-tertiary);
+  white-space: nowrap;
+}
+
+.ui-textarea {
+  @include forms.control-base(md);
+
+  min-height: 5.5rem;
+  line-height: t.ui-line-height(relaxed);
+  resize: vertical;
+}
