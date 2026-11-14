@@ -1,0 +1,46 @@
+# Node.js and package managers
+node_modules/
+.npm/
+.yarn/*
+!.yarn/patches/
+!.yarn/plugins/
+!.yarn/releases/
+!.yarn/sdks/
+!.yarn/versions/
+.pnp.*
+*.tsbuildinfo
+
+# Angular, NestJS, and build tooling
+.angular/
+.nx/
+dist/
+build/
+out-tsc/
+.cache/
+.eslintcache
+
+# Test output
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Logs and temporary files
+logs/
+*.log
+*.pid
+*.pid.lock
+tmp/
+temp/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Local editor and OS files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

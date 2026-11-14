@@ -1,0 +1,10 @@
+{
+  "name": "ai-shop-salesman",
+  "version": "0.0.0",
+  "private": true,
+  "description": "AI Shop Salesman MVP monorepo",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
