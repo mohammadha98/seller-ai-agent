@@ -1,0 +1,63 @@
+<section class="detail" aria-label="Product details">
+  <nav class="detail__breadcrumb" aria-label="Breadcrumb">
+    <a class="detail__breadcrumb-link" routerLink="/products">Products</a>
+    <span class="detail__breadcrumb-separator" aria-hidden="true">/</span>
+    <span class="detail__breadcrumb-current" aria-current="page">
+      {{ product()?.name ?? 'Product details' }}
+    </span>
+  </nav>
+
+  @if (loading()) {
+    <div class="detail__status">
+      <ui-spinner size="lg" label="Loading product" />
+    </div>
+  } @else if (notFound()) {
+    <h1 class="detail__heading">Product not found</h1>
+    <ui-empty-state description="This product may have been removed or is no longer available.">
+      <div uiEmptyStateActions>
+        <ui-button variant="secondary" (clicked)="backToProducts()">Back to products</ui-button>
+      </div>
+    </ui-empty-state>
+  } @else if (error(); as error) {
+    <h1 class="detail__heading">Product details</h1>
+    <ui-alert variant="danger" title="We couldn't load this product">
+      <p class="detail__error">{{ error.message }}</p>
+      <div uiAlertActions>
+        <ui-button variant="secondary" size="sm" (clicked)="reload()">Try again</ui-button>
+      </div>
+    </ui-alert>
+  } @else if (product(); as product) {
+    <ui-card variant="elevated" padding="lg">
+      <div uiCardHeader class="detail__header">
+        <div class="detail__heading-group">
+          <h1 class="detail__heading">{{ product.name }}</h1>
+          <p class="detail__description">{{ product.description }}</p>
+        </div>
+        <ui-badge [variant]="stockBadge().variant">{{ stockBadge().label }}</ui-badge>
+      </div>
+
+      <dl class="detail__meta">
+        <div class="detail__meta-item">
+          <dt class="detail__term">Price</dt>
+          <dd class="detail__value">
+            {{ product.price | currency: 'USD' : 'symbol' : '1.2-2' }}
+          </dd>
+        </div>
+        <div class="detail__meta-item">
+          <dt class="detail__term">Stock</dt>
+          <dd class="detail__value">{{ product.stock }}</dd>
+        </div>
+        <div class="detail__meta-item">
+          <dt class="detail__term">Availability</dt>
+          <dd class="detail__value">
+            <ui-badge variant="success" dot>Active</ui-badge>
+          </dd>
+        </div>
+      </dl>
+
+      <div uiCardFooter class="detail__footer">
+        <ui-button variant="outline" (clicked)="backToProducts()">Back to products</ui-button>
+      </div>
+    </ui-card>
+  }
+</section>

@@ -4,6 +4,8 @@ This repository provides the initial monorepo structure for an AI shop salesman 
 
 Read [.bridge/ARCHITECTURE.md](.bridge/ARCHITECTURE.md) before making changes. All agents must follow the ownership rules in [.bridge/AGENT_BOUNDARIES.md](.bridge/AGENT_BOUNDARIES.md), coordinate work in [.bridge/TASK_QUEUE.md](.bridge/TASK_QUEUE.md), and negotiate API schemas in [.bridge/API_CONTRACTS.md](.bridge/API_CONTRACTS.md).
 
+Current scope is Increment 1: the product catalog foundation. Requirements and open questions are in [docs/REQUIREMENTS.md](docs/REQUIREMENTS.md). Structural review decisions for merges to `main` are recorded in [.bridge/REVIEW_LOG.md](.bridge/REVIEW_LOG.md).
+
 ## Workspaces
 
 | Path | Purpose | Owner |

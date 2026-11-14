@@ -1,0 +1,49 @@
+<section class="catalog" aria-label="Product catalog">
+  <header class="catalog__header">
+    <div class="catalog__intro">
+      <p class="catalog__eyebrow">Storefront</p>
+      <h1 class="catalog__title">Products</h1>
+      <p class="catalog__lead">Browse the products currently available from this shop.</p>
+    </div>
+
+    <div class="catalog__actions">
+      <ui-button variant="outline" size="sm" [loading]="loading()" (clicked)="refresh()">
+        Refresh
+      </ui-button>
+    </div>
+  </header>
+
+  @if (error(); as error) {
+    <ui-alert variant="danger" title="Products could not be loaded">
+      <p class="catalog__error">{{ error.message }}</p>
+      <div uiAlertActions>
+        <ui-button variant="secondary" size="sm" (clicked)="refresh()">Try again</ui-button>
+      </div>
+    </ui-alert>
+  }
+
+  <h2 class="catalog__visually-hidden">Available products</h2>
+
+  @if (loading() && products().length === 0) {
+    <div class="catalog__status">
+      <ui-spinner size="lg" label="Loading products" />
+    </div>
+  } @else if (products().length > 0) {
+    <ul class="catalog__grid">
+      @for (product of products(); track product.id) {
+        <li class="catalog__item">
+          <app-product-card [product]="product" (view)="openProduct($event)" />
+        </li>
+      }
+    </ul>
+  } @else if (activeEmpty()) {
+    <ui-empty-state
+      title="No products available"
+      description="This shop does not have any active products right now. Check back soon."
+    >
+      <div uiEmptyStateActions>
+        <ui-button variant="secondary" (clicked)="refresh()">Refresh</ui-button>
+      </div>
+    </ui-empty-state>
+  }
+</section>

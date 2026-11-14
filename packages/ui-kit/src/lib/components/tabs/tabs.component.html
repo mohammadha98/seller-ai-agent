@@ -1,0 +1,29 @@
+<div
+  class="ui-tabs"
+  [class.ui-tabs--line]="variant === 'line'"
+  [class.ui-tabs--pill]="variant === 'pill'"
+  [class.ui-tabs--sm]="size === 'sm'"
+  [class.ui-tabs--md]="size === 'md'"
+>
+  <div class="ui-tabs__list" role="tablist" [attr.aria-label]="ariaLabel">
+    @for (tab of tabs; track tab.id; let i = $index) {
+      <button
+        #tabButton
+        class="ui-tabs__tab"
+        [class.ui-tabs__tab--active]="tab.id === activeId"
+        role="tab"
+        type="button"
+        [disabled]="!!tab.disabled"
+        [attr.aria-selected]="tab.id === activeId"
+        [attr.tabindex]="tabIndexFor(tab, i)"
+        (click)="select(tab)"
+        (keydown)="onKeydown($event, i)"
+      >
+        <span class="ui-tabs__label">{{ tab.label }}</span>
+        @if (tab.badge !== null && tab.badge !== undefined && tab.badge !== '') {
+          <span class="ui-tabs__badge">{{ tab.badge }}</span>
+        }
+      </button>
+    }
+  </div>
+</div>

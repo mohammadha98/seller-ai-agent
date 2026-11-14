@@ -1,0 +1,79 @@
+<div
+  class="ui-alert"
+  [class.ui-alert--info]="variant === 'info'"
+  [class.ui-alert--success]="variant === 'success'"
+  [class.ui-alert--warning]="variant === 'warning'"
+  [class.ui-alert--danger]="variant === 'danger'"
+  [class.ui-alert--no-icon]="!showIcon"
+  [attr.role]="role"
+>
+  @if (showIcon) {
+    <span class="ui-alert__icon" aria-hidden="true">
+      @if (customIcon) {
+        <ng-content select="[uiAlertIcon]"></ng-content>
+      } @else {
+        @switch (variant) {
+          @case ('success') {
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="10" r="7.25" />
+              <path d="m6.5 10 2.5 2.5 4.5-5" />
+            </svg>
+          }
+          @case ('warning') {
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 3.25 17 16H3L10 3.25Z" />
+              <path d="M10 8v3.5" />
+              <path d="M10 14h.01" />
+            </svg>
+          }
+          @case ('danger') {
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="10" r="7.25" />
+              <path d="M10 6.25v4.5" />
+              <path d="M10 13.75h.01" />
+            </svg>
+          }
+          @default {
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10" cy="10" r="7.25" />
+              <path d="M10 9v4.5" />
+              <path d="M10 6.5h.01" />
+            </svg>
+          }
+        }
+      }
+    </span>
+  }
+
+  <div class="ui-alert__content">
+    @if (title) {
+      <p class="ui-alert__title">{{ title }}</p>
+    }
+    <div class="ui-alert__message">
+      <ng-content></ng-content>
+    </div>
+    <div class="ui-alert__actions">
+      <ng-content select="[uiAlertActions]"></ng-content>
+    </div>
+  </div>
+
+  @if (dismissible) {
+    <button
+      class="ui-alert__close"
+      type="button"
+      [attr.aria-label]="dismissLabel"
+      (click)="dismiss()"
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+      >
+        <path d="m4 4 8 8M12 4l-8 8" />
+      </svg>
+    </button>
+  }
+</div>

@@ -1,0 +1,97 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  display: block;
+}
+
+.ui-progress {
+  display: flex;
+  flex-direction: column;
+  gap: t.ui-space(2);
+  width: 100%;
+}
+
+.ui-progress__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: t.ui-space(3);
+}
+
+.ui-progress__label {
+  font-size: t.ui-font-size(sm);
+  font-weight: t.ui-weight(medium);
+  color: t.ui-color(text-secondary);
+}
+
+.ui-progress__value {
+  font-size: t.ui-font-size(xs);
+  font-variant-numeric: tabular-nums;
+  color: t.ui-color(text-tertiary);
+}
+
+.ui-progress__track {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: t.ui-color(bg-muted);
+  border-radius: t.ui-radius(full);
+
+  &--sm {
+    height: 0.25rem;
+  }
+
+  &--md {
+    height: 0.5rem;
+  }
+
+  &--brand {
+    --ui-progress-color: #{t.ui-color(primary)};
+  }
+
+  &--success {
+    --ui-progress-color: #{t.ui-color(success)};
+  }
+
+  &--warning {
+    --ui-progress-color: #{t.ui-color(warning)};
+  }
+
+  &--danger {
+    --ui-progress-color: #{t.ui-color(danger)};
+  }
+}
+
+.ui-progress__bar {
+  height: 100%;
+  background: var(--ui-progress-color, #{t.ui-color(primary)});
+  border-radius: inherit;
+  transition: width t.ui-duration(base) t.ui-easing(standard);
+}
+
+.ui-progress__track--indeterminate .ui-progress__bar {
+  width: 40%;
+  animation: ui-progress-indeterminate 1.4s t.ui-easing(standard) infinite;
+}
+
+@keyframes ui-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-progress__bar {
+    transition: none;
+  }
+
+  .ui-progress__track--indeterminate .ui-progress__bar {
+    width: 100%;
+    animation: none;
+    opacity: 0.6;
+  }
+}

@@ -1,0 +1,119 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  display: block;
+}
+
+.ui-alert {
+  --ui-alert-accent: #{t.ui-color(info)};
+  --ui-alert-background: #{t.ui-color(info-subtle)};
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: t.ui-space(3);
+  width: 100%;
+  padding: t.ui-space(3) t.ui-space(4);
+  color: t.ui-color(text-primary);
+  background: var(--ui-alert-background);
+  border: 1px solid color-mix(in srgb, var(--ui-alert-accent) 24%, transparent);
+  border-radius: t.ui-radius(lg);
+
+  &--success {
+    --ui-alert-accent: #{t.ui-color(success)};
+    --ui-alert-background: #{t.ui-color(success-subtle)};
+  }
+
+  &--warning {
+    --ui-alert-accent: #{t.ui-color(warning)};
+    --ui-alert-background: #{t.ui-color(warning-subtle)};
+  }
+
+  &--danger {
+    --ui-alert-accent: #{t.ui-color(danger)};
+    --ui-alert-background: #{t.ui-color(danger-subtle)};
+  }
+
+  &--no-icon {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+.ui-alert__icon {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.5rem;
+  color: var(--ui-alert-accent);
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.0625rem;
+  }
+}
+
+.ui-alert__content {
+  display: flex;
+  flex-direction: column;
+  gap: t.ui-space(1);
+  min-width: 0;
+}
+
+.ui-alert__title {
+  margin: 0;
+  font-size: t.ui-font-size(sm);
+  font-weight: t.ui-weight(semibold);
+  line-height: t.ui-line-height(snug);
+  color: t.ui-color(text-primary);
+}
+
+.ui-alert__message {
+  font-size: t.ui-font-size(sm);
+  line-height: t.ui-line-height(normal);
+  color: t.ui-color(text-secondary);
+}
+
+.ui-alert__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: t.ui-space(2);
+  margin-top: t.ui-space(1);
+
+  &:empty {
+    display: none;
+  }
+}
+
+.ui-alert__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: -0.125rem -0.25rem 0 0;
+  padding: 0;
+  color: t.ui-color(text-tertiary);
+  background: transparent;
+  border: 0;
+  border-radius: t.ui-radius(sm);
+  cursor: pointer;
+  transition:
+    background-color t.ui-duration(fast) t.ui-easing(standard),
+    color t.ui-duration(fast) t.ui-easing(standard);
+
+  svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  &:hover {
+    color: t.ui-color(text-primary);
+    background: color-mix(in srgb, var(--ui-alert-accent) 12%, transparent);
+  }
+
+  &:focus-visible {
+    @include t.focus-ring(1px);
+  }
+}

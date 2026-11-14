@@ -1,0 +1,31 @@
+<ui-card variant="outlined" padding="md">
+  <div uiCardHeader class="product-card__header">
+    <h2 class="product-card__title">
+      <a class="product-card__link" [routerLink]="['/products', product().id]">
+        {{ product().name }}
+      </a>
+    </h2>
+    <ui-badge [variant]="stockBadge().variant">{{ stockBadge().label }}</ui-badge>
+  </div>
+
+  <p class="product-card__description">{{ product().description }}</p>
+
+  <dl class="product-card__meta">
+    <div class="product-card__meta-item">
+      <dt class="product-card__term">Price</dt>
+      <dd class="product-card__value">
+        {{ product().price | currency: 'USD' : 'symbol' : '1.2-2' }}
+      </dd>
+    </div>
+    <div class="product-card__meta-item">
+      <dt class="product-card__term">Stock</dt>
+      <dd class="product-card__value">{{ product().stock }}</dd>
+    </div>
+  </dl>
+
+  <div uiCardFooter class="product-card__footer">
+    <ui-button variant="secondary" size="sm" (clicked)="view.emit(product())">
+      View details
+    </ui-button>
+  </div>
+</ui-card>

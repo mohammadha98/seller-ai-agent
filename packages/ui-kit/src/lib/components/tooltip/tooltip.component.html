@@ -1,0 +1,16 @@
+@if (text && !disabled) {
+  <span
+    class="ui-tooltip__bubble"
+    [class.ui-tooltip__bubble--top]="position === 'top'"
+    [class.ui-tooltip__bubble--right]="position === 'right'"
+    [class.ui-tooltip__bubble--bottom]="position === 'bottom'"
+    [class.ui-tooltip__bubble--left]="position === 'left'"
+    role="tooltip"
+    [id]="resolvedId"
+  >
+    {{ text }}
+    <span class="ui-tooltip__arrow" aria-hidden="true"></span>
+  </span>
+}
+
+<ng-content></ng-content>

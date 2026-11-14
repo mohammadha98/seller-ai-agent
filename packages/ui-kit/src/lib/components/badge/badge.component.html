@@ -1,0 +1,20 @@
+<span
+  class="ui-badge"
+  [class.ui-badge--sm]="size === 'sm'"
+  [class.ui-badge--md]="size === 'md'"
+  [class.ui-badge--neutral]="variant === 'neutral'"
+  [class.ui-badge--brand]="variant === 'brand'"
+  [class.ui-badge--accent]="variant === 'accent'"
+  [class.ui-badge--success]="variant === 'success'"
+  [class.ui-badge--warning]="variant === 'warning'"
+  [class.ui-badge--danger]="variant === 'danger'"
+  [class.ui-badge--info]="variant === 'info'"
+  [class.ui-badge--soft]="appearance === 'soft'"
+  [class.ui-badge--solid]="appearance === 'solid'"
+  [class.ui-badge--outline]="appearance === 'outline'"
+>
+  @if (dot) {
+    <span class="ui-badge__dot" aria-hidden="true"></span>
+  }
+  <ng-content></ng-content>
+</span>

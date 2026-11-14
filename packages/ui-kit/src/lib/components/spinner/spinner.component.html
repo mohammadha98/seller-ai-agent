@@ -1,0 +1,18 @@
+<span
+  class="ui-spinner"
+  [class.ui-spinner--xs]="size === 'xs'"
+  [class.ui-spinner--sm]="size === 'sm'"
+  [class.ui-spinner--md]="size === 'md'"
+  [class.ui-spinner--lg]="size === 'lg'"
+  [class.ui-spinner--brand]="tone === 'brand'"
+  [class.ui-spinner--neutral]="tone === 'neutral'"
+  [class.ui-spinner--inverse]="tone === 'inverse'"
+  [class.ui-spinner--current]="tone === 'current'"
+  [attr.role]="decorative ? null : 'status'"
+  [attr.aria-hidden]="decorative ? 'true' : null"
+>
+  <span class="ui-spinner__circle" aria-hidden="true"></span>
+  @if (!decorative) {
+    <span class="ui-spinner__label">{{ label }}</span>
+  }
+</span>

@@ -1,0 +1,47 @@
+<div class="ui-field">
+  <label class="ui-checkbox" [class.ui-checkbox--disabled]="disabled">
+    <span class="ui-checkbox__control">
+      <input
+        #checkboxRef
+        class="ui-checkbox__input"
+        type="checkbox"
+        [id]="resolvedId"
+        [checked]="checked"
+        [attr.name]="name || null"
+        [attr.aria-invalid]="error ? 'true' : null"
+        [attr.aria-describedby]="describedBy"
+        [attr.aria-required]="required ? 'true' : null"
+        [disabled]="disabled"
+        [required]="required"
+        (change)="onChange($event)"
+        (blur)="onBlur($event)"
+      />
+      <span class="ui-checkbox__box" aria-hidden="true">
+        <svg
+          class="ui-checkbox__check"
+          viewBox="0 0 16 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="m3.5 8.5 3 3 6-7" />
+        </svg>
+      </span>
+    </span>
+
+    <span class="ui-checkbox__text">
+      @if (label) {
+        <span class="ui-checkbox__label">{{ label }}</span>
+      }
+      @if (hint) {
+        <span class="ui-checkbox__hint" [id]="hintId">{{ hint }}</span>
+      }
+    </span>
+  </label>
+
+  @if (error) {
+    <span class="ui-field__error" [id]="errorId">{{ error }}</span>
+  }
+</div>

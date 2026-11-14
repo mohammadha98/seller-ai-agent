@@ -1,0 +1,38 @@
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header class="app-header">
+  <div class="app-header__inner">
+    <a class="app-brand" routerLink="/" aria-label="AI Shop Salesman home">
+      <span class="app-brand__mark" aria-hidden="true">AI</span>
+      <span class="app-brand__name">Shop Salesman</span>
+    </a>
+
+    <nav class="app-nav" aria-label="Primary">
+      <a
+        class="app-nav__link"
+        routerLink="/"
+        routerLinkActive="app-nav__link--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        ariaCurrentWhenActive="page"
+      >
+        Home
+      </a>
+      <a
+        class="app-nav__link"
+        routerLink="/products"
+        routerLinkActive="app-nav__link--active"
+        ariaCurrentWhenActive="page"
+      >
+        Products
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" class="app-main" tabindex="-1">
+  <router-outlet />
+</main>
+
+<footer class="app-footer">
+  <p class="app-footer__text">&copy; {{ currentYear }} AI Shop Salesman</p>
+</footer>

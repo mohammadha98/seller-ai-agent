@@ -1,0 +1,120 @@
+@use '../../styles/tokens' as t;
+
+:host {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.ui-tooltip__bubble {
+  position: absolute;
+  z-index: t.ui-z(tooltip);
+  width: max-content;
+  max-width: 16rem;
+  padding: t.ui-space(1) t.ui-space(2);
+  font-size: t.ui-font-size(xs);
+  font-weight: t.ui-weight(medium);
+  line-height: t.ui-line-height(snug);
+  color: t.ui-color(text-inverse);
+  text-align: center;
+  background: t.ui-color(bg-inverse);
+  border-radius: t.ui-radius(sm);
+  box-shadow: t.ui-shadow(md);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity t.ui-duration(fast) t.ui-easing(standard),
+    visibility t.ui-duration(fast) t.ui-easing(standard),
+    transform t.ui-duration(fast) t.ui-easing(standard);
+  transition-delay: 0ms;
+
+  &--top {
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(0.125rem);
+  }
+
+  &--right {
+    top: 50%;
+    left: calc(100% + 0.5rem);
+    transform: translateY(-50%) translateX(-0.125rem);
+  }
+
+  &--bottom {
+    top: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%) translateY(-0.125rem);
+  }
+
+  &--left {
+    top: 50%;
+    right: calc(100% + 0.5rem);
+    transform: translateY(-50%) translateX(0.125rem);
+  }
+}
+
+:host(:hover) .ui-tooltip__bubble,
+:host(:focus-within) .ui-tooltip__bubble {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 150ms;
+}
+
+:host(:hover) .ui-tooltip__bubble--top,
+:host(:focus-within) .ui-tooltip__bubble--top {
+  transform: translateX(-50%) translateY(0);
+}
+
+:host(:hover) .ui-tooltip__bubble--right,
+:host(:focus-within) .ui-tooltip__bubble--right {
+  transform: translateY(-50%) translateX(0);
+}
+
+:host(:hover) .ui-tooltip__bubble--bottom,
+:host(:focus-within) .ui-tooltip__bubble--bottom {
+  transform: translateX(-50%) translateY(0);
+}
+
+:host(:hover) .ui-tooltip__bubble--left,
+:host(:focus-within) .ui-tooltip__bubble--left {
+  transform: translateY(-50%) translateX(0);
+}
+
+.ui-tooltip__arrow {
+  position: absolute;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: t.ui-color(bg-inverse);
+  transform: rotate(45deg);
+
+  .ui-tooltip__bubble--top & {
+    bottom: -0.25rem;
+    left: 50%;
+    margin-left: -0.25rem;
+  }
+
+  .ui-tooltip__bubble--right & {
+    top: 50%;
+    left: -0.25rem;
+    margin-top: -0.25rem;
+  }
+
+  .ui-tooltip__bubble--bottom & {
+    top: -0.25rem;
+    left: 50%;
+    margin-left: -0.25rem;
+  }
+
+  .ui-tooltip__bubble--left & {
+    top: 50%;
+    right: -0.25rem;
+    margin-top: -0.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-tooltip__bubble {
+    transition: none;
+  }
+}
