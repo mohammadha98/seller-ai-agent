@@ -18,7 +18,7 @@ Rules:
 | TASK-003 | Add controller or e2e coverage for the catalog endpoints: status codes, validation failures, 404 paths, and delete behavior. | Backend Agent | Unclaimed | TASK-001 | None |
 | TASK-004 | Define design tokens for color, typography, spacing, radius, and elevation in `packages/ui-kit`. | Design System Agent | Unclaimed | None | `design-system` |
 | TASK-005 | Build reusable design-system primitives: button, card, input, badge, spinner, and empty/error state. | Design System Agent | Unclaimed | TASK-004 | `design-system` |
-| TASK-006 | Scaffold the Angular app in `apps/web`: workspace config, app shell, routing, and lint/test scripts. Do not implement catalog features. | UI Agent | Unclaimed | None | None |
+| TASK-006 | Scaffold the Angular app in `apps/web`: workspace config, app shell, routing, and lint/test scripts. Do not implement catalog features. | UI Agent | In Progress | None | `ui` |
 | TASK-007 | Implement the typed product API client and shared product types in `apps/web/src/services` and `apps/web/src/types`, with error normalization and configurable base URL. Acknowledge TASK-002 before starting. | Services Agent | Blocked | TASK-002, TASK-006 | None |
 | TASK-008 | Implement the storefront product list page with active-product filtering, loading, empty, and error states, linking to detail. | UI Agent | Blocked | TASK-005, TASK-007 | None |
 | TASK-009 | Implement the product detail page with product data and a not-found state. | UI Agent | Blocked | TASK-005, TASK-007 | None |
